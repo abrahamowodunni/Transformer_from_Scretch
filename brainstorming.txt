@@ -1,0 +1,7 @@
+InputEmbedding:
+    The goal of this class is to convert token indices into dense embedding vectors, 
+    scaled by the dimension of the model (d_model). These embeddings are used as the initial input to the transformer model, 
+    encoding information about the token’s position in the vocabulary.
+
+
+
