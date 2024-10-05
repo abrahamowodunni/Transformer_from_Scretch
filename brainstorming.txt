@@ -3,5 +3,9 @@ InputEmbedding:
     scaled by the dimension of the model (d_model). These embeddings are used as the initial input to the transformer model, 
     encoding information about the token’s position in the vocabulary.
 
-
+PositionEncoding:
+    The goal of this class is to inject positional information into the token embeddings using sine and cosine functions. 
+    This helps the transformer model understand the order of tokens,
+    which is critical for tasks involving sequential data like translation. 
+    The dropout layer helps improve generalization.
 
