@@ -23,3 +23,13 @@ Layer Norm:
 Feedforward:
     The purpose of this block is to enhance the expressiveness of the transformer model by adding a simple two-layer feedforward network after the attention mechanism. 
     This block is responsible for learning complex patterns by introducing non-linear transformations and then projecting back to the original feature space (d_model).
+
+MultiHeadAttention:
+    Initialization:
+        Set up the linear transformations (for query, key, value, and output) and define the number of heads.
+    Attention Function:
+        Compute attention scores (dot-product, scaling, softmax) and apply them to the value vectors.
+    Forward Pass:
+        1> Transform the input into query, key, and value vectors.
+        2> Split into multiple heads, compute attention for each head, and concatenate the results.
+        3> Apply the final linear transformation to get the output.
