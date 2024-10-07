@@ -9,3 +9,17 @@ PositionEncoding:
     which is critical for tasks involving sequential data like translation. 
     The dropout layer helps improve generalization.
 
+
+Layer Norm:
+    Layer Normalization plays a critical role in transformers, 
+    particularly in the residual connections between layers. 
+    In transformer architectures:
+
+        1> The output of sub-layers (e.g., multi-head attention or feedforward layers) is added back to the original input.
+        2> Before this addition (or sometimes after), 
+        layer normalization ensures that the model doesn’t face issues like vanishing or exploding gradients, 
+        and that the range of values passed between layers remains controlled.
+
+Feedforward:
+    The purpose of this block is to enhance the expressiveness of the transformer model by adding a simple two-layer feedforward network after the attention mechanism. 
+    This block is responsible for learning complex patterns by introducing non-linear transformations and then projecting back to the original feature space (d_model).
