@@ -33,3 +33,8 @@ MultiHeadAttention:
         1> Transform the input into query, key, and value vectors.
         2> Split into multiple heads, compute attention for each head, and concatenate the results.
         3> Apply the final linear transformation to get the output.
+
+residualConnection or skip connection:
+    The goal of this class is to implement a residual connection (or "skip connection") around a sublayer (e.g., multi-head attention or feed-forward layer) along with dropout and layer normalization. 
+    Residual connections help prevent the degradation of signals during training, 
+    which is critical for deep models like transformers.
