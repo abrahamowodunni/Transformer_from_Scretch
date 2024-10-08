@@ -38,3 +38,14 @@ residualConnection or skip connection:
     The goal of this class is to implement a residual connection (or "skip connection") around a sublayer (e.g., multi-head attention or feed-forward layer) along with dropout and layer normalization. 
     Residual connections help prevent the degradation of signals during training, 
     which is critical for deep models like transformers.
+
+encoderblock:
+    The EncoderBlock is designed to process an input sequence through self-attention and a feed-forward network while maintaining residual connections. 
+    This allows the encoder to capture both local and global dependencies in the input sequence, 
+    which is crucial for tasks like translation.
+
+encoder:
+    The Encoder class represents a stack of EncoderBlock layers, 
+    each containing self-attention and feed-forward blocks with residual connections. 
+    This class iterates over the multiple layers and normalizes the output at the end. 
+    The main purpose of the encoder is to extract features and patterns from the input sequence in a way that preserves information across different levels of abstraction.
