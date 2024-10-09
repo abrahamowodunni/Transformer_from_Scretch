@@ -54,3 +54,8 @@ decoderBlock:
     The DecoderBlock is a core component of the decoder in the Transformer model. 
     Its goal is to process the target sequence (the sequence that we want to generate or predict) while considering both the target sequence (via self-attention) and the input sequence (via cross-attention). 
     This allows the model to generate the next token in a sequence by learning from both what has already been generated (target) and the context of the input (encoder output).
+
+decoder:
+    This Decoder class works in tandem with the Encoder to generate outputs in tasks like machine translation, 
+    where the model needs to both attend to the source sentence (via cross-attention) and generate the target sentence sequentially.
+
