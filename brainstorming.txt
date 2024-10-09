@@ -73,3 +73,13 @@ transformer:
     The goal of this class is to take input sequences (e.g., sentences), 
     pass them through an encoder and decoder, 
     and produce output predictions (e.g., translated sentences or generated text).
+
+build transformer:
+    The build_transformer function assembles a complete Transformer model with multiple encoder and decoder blocks, 
+    embedding layers, positional encodings, 
+    and a projection layer. 
+    This model can be used for tasks such as machine translation, 
+    text generation, or other sequence-to-sequence tasks. 
+    It follows the standard architecture of the original Transformer paper,
+    with customizable parameters such as the number of layers, 
+    attention heads, and model size.
