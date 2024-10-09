@@ -65,3 +65,11 @@ ProjectionLayer:
     where the model generates the probability distribution over all possible tokens (words in the vocabulary) for each position in the sequence. 
     These predictions are made for tasks like translation, 
     text generation, etc.
+
+transformer:
+    The Transformer class is a full implementation of the Transformer architecture, 
+    which includes the encoding, 
+    decoding, and final projection steps. 
+    The goal of this class is to take input sequences (e.g., sentences), 
+    pass them through an encoder and decoder, 
+    and produce output predictions (e.g., translated sentences or generated text).
