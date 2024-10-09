@@ -59,3 +59,9 @@ decoder:
     This Decoder class works in tandem with the Encoder to generate outputs in tasks like machine translation, 
     where the model needs to both attend to the source sentence (via cross-attention) and generate the target sentence sequentially.
 
+ProjectionLayer:
+    The ProjectionLayer serves the purpose of transforming the final hidden states (of dimension d_model) from the decoder into a set of predictions across the vocabulary. 
+    This is the last step in a transformer model, 
+    where the model generates the probability distribution over all possible tokens (words in the vocabulary) for each position in the sequence. 
+    These predictions are made for tasks like translation, 
+    text generation, etc.
