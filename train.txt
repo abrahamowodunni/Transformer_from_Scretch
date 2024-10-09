@@ -1,0 +1,8 @@
+Summary of the Code's Purpose:
+This code helps create a custom tokenizer based on your text data for both source and target languages. It uses the WordLevel tokenizer, which assigns tokens to whole words, making it suitable for applications where word-level tokenization suffices.
+The tokenizer can be reused once saved, which helps reduce redundant work, especially when working with large datasets.
+Next steps might include:
+
+Applying the tokenizer to your dataset to convert sentences into tokenized sequences.
+Integrating the tokenized data into your Transformer model pipeline for training and inference.
+This approach allows the flexibility to create language-specific tokenizers and handle cases where some tokens need special treatment (like padding or start/end markers).
