@@ -39,8 +39,8 @@ def get_ds(config):
               for _, row in df.iterrows()]
 
     # Build tokenizers
-    tokenizer_src = get_or_build_tokenizer(config, ds_raw, config['lang_src'])
-    tokenizer_tgt = get_or_build_tokenizer(config, ds_raw, config['lang_tgt'])
+    tokenizer_src = get_tokenizer(config, ds_raw, config['lang_src'])
+    tokenizer_tgt = get_tokenizer(config, ds_raw, config['lang_tgt'])
 
     # Keep 90% for training, 10% for validation
     train_ds_size = int(0.9 * len(ds_raw))
