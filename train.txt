@@ -6,3 +6,15 @@ Next steps might include:
 Applying the tokenizer to your dataset to convert sentences into tokenized sequences.
 Integrating the tokenized data into your Transformer model pipeline for training and inference.
 This approach allows the flexibility to create language-specific tokenizers and handle cases where some tokens need special treatment (like padding or start/end markers).
+
+
+
+The main purpose of this code is to create a PyTorch Dataset that prepares bilingual data for the Transformer model. The dataset handles tokenization, adds special tokens like <s> (start of sequence) and </s> (end of sequence), applies padding, and generates masks for training.
+
+The dataset is designed to feed the Transformer model during training by:
+
+Tokenizing source and target sentences.
+Padding sequences to ensure they are of the same length.
+Adding special tokens to the sequences.
+Generating input and target pairs for the Transformer.
+Creating attention masks to ignore padding tokens during training.
