@@ -4,7 +4,7 @@ def get_config():
     return {
         "batch_size": 8,
         "num_epochs": 20,
-        "lr": 10**-4,
+        "lr": 10**-4, # i could explore flexible learning rate
         "seq_len": 350,
         "d_model": 512,
         "data_path": "C:\Users\mayuo\OneDrive\Documents\Machine Learning by Abraham\Transformer_from_Scretch\Train.csv",  # Path to your local CSV file
@@ -12,7 +12,7 @@ def get_config():
         "lang_tgt": "English",                     # Target language (English)
         "model_folder": "weights",
         "model_basename": "tmodel_",
-        "preload": "latest",
+        "preload": None,
         "tokenizer_file": "tokenizer_{0}.json",
         "experiment_name": "runs/tmodel"
     }
