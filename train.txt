@@ -25,3 +25,12 @@ Tokenization: Create or load tokenizers to convert text into numerical tokens.
 Dataset Creation: Load and clean the dataset, then split it into training and validation sets.
 Data Loaders: Create loaders that handle batching and shuffling of the data.
 Sequence Length Calculation: Calculate the maximum sequence length for efficient padding and tokenization, which is crucial for transformers.
+
+Goals of This Stage:
+Train the Model: This stage ensures that your Transformer model is being trained by learning from data, calculating losses, and optimizing its weights.
+Track Training Progress: By logging loss values and periodically saving model checkpoints, you can monitor how well the model is learning and resume training if needed.
+Prevent Overfitting: The loss function uses label smoothing to combat overfitting, which will help the model generalize better.
+Next Steps:
+Train for Multiple Epochs: Let the model train over the specified number of epochs (config['num_epochs']) while monitoring the loss and ensuring the model improves over time.
+Validation Step: After each epoch, it would be helpful to evaluate the model on a validation set to track how well it generalizes.
+Tuning Hyperparameters: Adjust the learning rate, batch size, and other hyperparameters if the model is underperforming or not improving as expected.
