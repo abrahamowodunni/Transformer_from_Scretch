@@ -14,8 +14,9 @@ from tokenizers.models import WordLevel
 from tokenizers.trainers import WordLevelTrainer
 from tokenizers.pre_tokenizers import Whitespace
 
-
 from torch.utils.tensorboard import SummaryWriter 
+
+from torch.utils.tensorboard  import summary
 
 import warnings
 from pathlib import Path

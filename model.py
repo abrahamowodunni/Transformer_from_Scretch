@@ -85,11 +85,11 @@ class LayerNormalization(nn.Module):
     Forward Output:
         Tensor: Normalized tensor of the same shape as the input.
     """
-    def __init__(self, eps = 10**-6):
+    def __init__(self, features, eps = 10**-6):
         super().__init__()
         self.eps = eps
-        self.alpah = nn.Parameter(torch.ones(1)) # for multiplication
-        self.bias = nn.Parameter(torch.zeros(1)) # for addition
+        self.alpah = nn.Parameter(torch.ones(features)) # for multiplication
+        self.bias = nn.Parameter(torch.zeros(features)) # for addition
 
     def forward(self,x):
         mean = x.mean(dim = -1, keepdim = True)
@@ -215,11 +215,11 @@ class ResidualConnection(nn.Module): # the skip connection!
     Returns:
         Tensor: The output with a residual connection added to the transformed input.
     """
-    def __init__(self, dropout):
+    def __init__(self,features, dropout):
 
         super().__init__()
         self.dropout = nn.Dropout(dropout)
-        self.norm = LayerNormalization()
+        self.norm = LayerNormalization(features)
 
     def forward(self, x, sublayer):
         return x + self.dropout(sublayer(self.norm(x)))
@@ -240,11 +240,11 @@ class EncoderBlock(nn.Module):
     Returns:
         Tensor: The output after passing through the self-attention, feed-forward layers, and residual connections.
     """
-    def __init__(self, self_attention_block: MultiHeadAttentionBlock, feed_forward_block: FeedForwardBlock, dropout):
+    def __init__(self, features, self_attention_block: MultiHeadAttentionBlock, feed_forward_block: FeedForwardBlock, dropout):
         super().__init__()
         self.self_attention_block = self_attention_block
         self.feed_forward_block = feed_forward_block
-        self.residual_connections = nn.ModuleList([ResidualConnection(dropout) for _ in range(2)])
+        self.residual_connections = nn.ModuleList([ResidualConnection(features, dropout) for _ in range(2)])
 
     def apply_self_attention(self, x, src_mask):
         return self.self_attention_block(x, x, x, src_mask) 
@@ -265,10 +265,10 @@ class Encoder(nn.Module):
     Methods:
         forward(x, mask): Passes the input through each encoder block, applying layer normalization to the final output.
     """
-    def __init__(self, layers: nn.ModuleList):
+    def __init__(self, features, layers: nn.ModuleList):
         super().__init__()
         self.layers = layers
-        self.norm = LayerNormalization()
+        self.norm = LayerNormalization(features)
 
     def forward(self, x, mask):
         for layer in self.layers:
@@ -288,12 +288,13 @@ class DecoderBlock(nn.Module):
     Methods:
         forward(x, encoder_output, src_mask, tgt_mask): Passes the input through self-attention, cross-attention, and feed-forward blocks with residual connections.
     """
-    def __init__(self, self_attention_block: MultiHeadAttentionBlock, cross_attention_block:MultiHeadAttentionBlock, feed_forward_block: FeedForwardBlock, dropout):
+    def __init__(self, features, self_attention_block: MultiHeadAttentionBlock, cross_attention_block:MultiHeadAttentionBlock, feed_forward_block: FeedForwardBlock, dropout):
         super().__init__()
         self.self_attention_block = self_attention_block
         self.feed_forward_block = feed_forward_block
         self.cross_attention_block = cross_attention_block
-        self.residual_connections = nn.ModuleList([ResidualConnection(dropout) for _ in range(3)])
+    def __init__(self, features, self_attention_block: MultiHeadAttentionBlock, cross_attention_block:MultiHeadAttentionBlock, feed_forward_block: FeedForwardBlock, dropout):
+        self.residual_connections = nn.ModuleList([ResidualConnection(features,dropout) for _ in range(3)])
     
     def forward(self, x, encoder_output, src_mask, tgt_mask):
         x = self.residual_connections[0](x, lambda x: self.self_attention_block(x, x, x, tgt_mask))
@@ -324,10 +325,10 @@ class Decoder(nn.Module):
     Output:
         Tensor: The final output from the decoder after processing through all layers and normalization.
     """
-    def __init__(self, layers: nn.ModuleList) :
+    def __init__(self, features, layers: nn.ModuleList) :
         super().__init__()
         self.layers = layers
-        self.norm = LayerNormalization()
+        self.norm = LayerNormalization(features)
     
     def forward(self, x, encoder_output, src_mask, tgt_mask):
         for layer in self.layers:
@@ -456,7 +457,7 @@ def build_tranformer(src_vocab_size, tgt_vocab_size, src_seq_len, tgt_seq_len, d
     for _ in range(N):
         encoder_self_attention_block = MultiHeadAttentionBlock(d_model, h, dropout)
         feed_forward_block = FeedForwardBlock(d_model, d_ff, dropout)
-        encoder_block = EncoderBlock(encoder_self_attention_block, feed_forward_block, dropout)
+        encoder_block = EncoderBlock(d_model, encoder_self_attention_block, feed_forward_block, dropout)
         encoder_blocks.append(encoder_block)
     
     # decoder block

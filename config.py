@@ -7,7 +7,7 @@ def get_config():
         "lr": 10**-4, # i could explore flexible learning rate
         "seq_len": 350,
         "d_model": 512,
-        "data_path": "C:\Users\mayuo\OneDrive\Documents\Machine Learning by Abraham\Transformer_from_Scretch\Train.csv",  # Path to your local CSV file
+        "data_path": "Train.csv",  # Path to your local CSV file
         "lang_src": "Yoruba",                      # Source language (Yoruba)
         "lang_tgt": "English",                     # Target language (English)
         "model_folder": "weights",
