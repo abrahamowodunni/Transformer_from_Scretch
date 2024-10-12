@@ -46,8 +46,9 @@ class BillingualDataSet(Dataset):
         return len(self.ds)
     
     def __getitem__(self, idx):
-        src_text = self.ds[idx]['src']
-        tgt_text = self.ds[idx]['tgt']
+        src_target_pair = self.ds[idx]
+        src_text = src_target_pair['translation'][self.src_lang]
+        tgt_text = src_target_pair['translation'][self.tgt_lang]
 
         # Transform the text into tokens
         enc_input_tokens = self.tokenizer_src.encode(src_text).ids
@@ -88,17 +89,17 @@ class BillingualDataSet(Dataset):
 
         return{
             "encoder_input": encoder_input, # seq_len
-            "decoder_imput": decoder_input, # seq_len
+            "decoder_input": decoder_input, # seq_len
             "encoder_mask": (encoder_input != self.pad_token).unsqueeze(0).int(), # we don't want to learn the padded ones
-            "decoder_mask": (decoder_input != self.pad_token).unsqueeze(0).int() & self.causal_mask(decoder_input.size(0)), # we just want it to focus on the previous works  
+            "decoder_mask": (decoder_input != self.pad_token).unsqueeze(0).int() & causal_mask(decoder_input.size(0)), # we just want it to focus on the previous works  
             "label": label,
             "src_text": src_text,
             "tgt_text": tgt_text
 
         }
     
-    def causal_mask(size):
-        mask = torch.triu(torch.ones((1, size, size)), disgonal = 1).type(torch.int) 
-        return mask == 0 # everything above the diagonal will become 0
+def causal_mask(size):
+    mask = torch.triu(torch.ones((1, size, size)), diagonal = 1).type(torch.int) 
+    return mask == 0 # everything above the diagonal will become 0
 
 

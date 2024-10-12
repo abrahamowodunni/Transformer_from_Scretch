@@ -20,7 +20,7 @@ from torch.utils.tensorboard  import summary
 
 import warnings
 from pathlib import Path
-import tqdm
+from tqdm import tqdm
 
 def get_all_sentences(ds, lang):
     for item in ds:
@@ -115,7 +115,7 @@ def train_model(config):
         print('No model to preload, starting from scratch')
     
     # loss function 
-    loss_fn = nn.CrossEntropyLoss(ignore_index=tokenizer_src.token_to_id(['PAD']), label_smoothing=0.1).to(device) # helps with overfitting 
+    loss_fn = nn.CrossEntropyLoss(ignore_index=tokenizer_src.token_to_id('[PAD]'), label_smoothing=0.1).to(device) # helps with overfitting 
 
     #training loop
     for epoch in range(initial_epoch, config['num_epochs']):
