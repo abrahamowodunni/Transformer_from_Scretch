@@ -23,7 +23,7 @@ class InputEmbeddings(nn.Module):
         self.embedding = nn.Embedding(vocab_size,d_model) # torch can help us with this 
 
     def forward(self, x):
-        return self.embedding * math.sqrt(self.d_model)
+        return self.embedding(x) * math.sqrt(self.d_model)
 
 class PositionalEncoding(nn.Module):
     """
@@ -121,7 +121,7 @@ class FeedForwardBlock(nn.Module):
         super().__init__()
         self.linear1 = nn.Linear(d_model, d_ff) # Linear transformation W1 with bias b1
         self.dropout = nn.Dropout(dropout) # Dropout for regularization
-        self.linear2 = nn.Linear(d_model, d_ff) # Linear transformation W2 with bias b2
+        self.linear2 = nn.Linear(d_ff, d_model) # Linear transformation W2 with bias b2
 
     def forward(self, x):
         # (batch, sq_len, d_model) --> (batch, sq_len, d_ff) --> (batch, sq_len, d_model)
@@ -245,12 +245,9 @@ class EncoderBlock(nn.Module):
         self.self_attention_block = self_attention_block
         self.feed_forward_block = feed_forward_block
         self.residual_connections = nn.ModuleList([ResidualConnection(dropout) for _ in range(2)])
-
-    def apply_self_attention(self, x, src_mask):
-        return self.self_attention_block(x, x, x, src_mask) 
     
     def forward(self, x, src_mask):
-        x = self.residual_connections[0](x, self.apply_self_attention(x, src_mask))
+        x = self.residual_connections[0](x, lambda x: self.self_attention_block(x, x, x, src_mask))
         x = self.residual_connections[1](x, self.feed_forward_block)
         return x
     
@@ -365,7 +362,7 @@ class ProjectionLayer(nn.Module):
     
     def forward(self, x):
         # (batch, seq_len, d_model) --> (batch, seq_len, vocab_size)
-        return torch.log_softmax(self.proj[x], dim = -1)
+        return torch.log_softmax(self.proj(x), dim = -1)
     
 class Transformer(nn.Module):
     """

@@ -8,8 +8,8 @@ def get_config():
         "seq_len": 350,
         "d_model": 512,
         "data_path": "Train.csv",  # Path to your local CSV file
-        "lang_src": "Yoruba",                      # Source language (Yoruba)
-        "lang_tgt": "English",                     # Target language (English)
+        "lang_src": "English",                      # Source language (English)
+        "lang_tgt": "Yoruba",                     # Target language (Yoruba)
         "model_folder": "weights",
         "model_basename": "tmodel_",
         "preload": None,
