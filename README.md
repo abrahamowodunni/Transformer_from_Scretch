@@ -1,4 +1,4 @@
-# Yoruba-to-English Transformer
+# English-to-Yoruba Transformer
 
 Welcome to the **Yoruba-to-English Transformer** project! This repository contains a custom-built transformer model that translates text from Yoruba to English. 🚀
 
@@ -7,7 +7,7 @@ This project aims to build a transformer model from scratch, leveraging the powe
 
 ### 🧠 **Goals**
 - Develop a transformer model from scratch.
-- Translate text from Yoruba to English.
+- Translate text from English to Yoruba.
 - Continuously improve the model’s performance and accuracy.
 
 ### ⚙️ **Core Components**
